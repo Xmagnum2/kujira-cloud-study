@@ -35,4 +35,6 @@ jobs:
       - id: init
         run: terraform init
       - id: plan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: tfcmt plan -patch -- terraform plan -no-color
