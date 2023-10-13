@@ -5,10 +5,17 @@ terraform {
       version = ">= 5.5.0"
     }
   }
+  
+  backend "s3" {
+    encrypt        = true
+    bucket         = "sugiyama-s3"
+    # dynamodb_table = "terraform-state-lock"
+    key            = "terraform.tfstate"
+    region         = "ap-northeast-1"
+  }
 }
-
 locals {
-  app_name = "your_app"
+  app_name = "sugiyama"
 
   # IPアドレスを追加したい場合はここに追記
   allowed_ips = [
@@ -20,18 +27,18 @@ locals {
   images = "1234567890.dkr.ecr.ap-northeast-1.amazonaws.com/your_app:latest"
 }
 
-variable "access_key" {}
-variable "secret_key" {}
+variable "AWS_ACCESS_KEY_ID" {}
+variable "AWS_SECRET_ACCESS_KEY" {}
 
 provider "aws" {
   region     = "ap-northeast-1"
-  access_key = var.access_key
-  secret_key = var.secret_key
+  access_key = var.AWS_ACCESS_KEY_ID
+  secret_key = var.AWS_SECRET_ACCESS_KEY
   default_tags {
     tags = {
       application   = local.app_name
       Name          = local.app_name
-      administrator = "your_name"
+      administrator = "sugiyama"
     }
   }
 }
