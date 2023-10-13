@@ -35,4 +35,4 @@ jobs:
       - id: init
         run: terraform init
       - id: plan
-        run: terraform plan -no-color
+        run: tfcmt plan -patch -- terraform plan -no-color
