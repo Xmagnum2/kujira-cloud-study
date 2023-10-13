@@ -26,4 +26,4 @@ jobs:
       - id: init
         run: terraform init
       - id: apply
-        run: terraform apply -auto-approve -no-color
+        run: terraform apply -auto-approve -no-color -input=false
